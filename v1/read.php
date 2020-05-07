@@ -64,7 +64,9 @@ if($stmt->rowCount() > 0){
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         $post_data = [
             'id' => $row['id'],
-            'name' => $row['name']
+            'name' => $row['name'],
+            'created_at' => $row['created_at']
+
             //,
             //'body' => html_entity_decode($row['body']),
             //'author' => $row['author']

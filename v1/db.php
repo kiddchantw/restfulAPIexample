@@ -41,11 +41,11 @@ class Database{
     //$conn = new PDO($servername,$dbname, $username , $password);
     //$conn = new PDO("mysql:host=$servername;dbname=dbtest001", "root@localhost", "1234");
             $conn = new PDO("mysql:host=".$this->servername.";dbname=".$this->dbname, $this->username, $this->password);
-            //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, false);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //$conn->setAttribute(PDO::ATTR_ERRMODE, false);
 
             // echo "Connected successfully db3 <br>";
-            // var_dump($conn);
+             // var_dump($conn);
             return $conn;
 
         } catch(PDOException $e) {
