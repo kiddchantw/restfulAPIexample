@@ -28,16 +28,30 @@ class Database{
     protected $password = "1234";
     protected $dbname = "dbtest001";
 
+    // protected $conn;
+
+    // public function __construct( PDO $conn ) {
+    //     $this->conn = $conn;
+    // }
+
     public function dbConnection(){
+
+
         try {
-    //$conn = new PDO($servername,$dbname, $username, $password);
+    //$conn = new PDO($servername,$dbname, $username , $password);
     //$conn = new PDO("mysql:host=$servername;dbname=dbtest001", "root@localhost", "1234");
             $conn = new PDO("mysql:host=".$this->servername.";dbname=".$this->dbname, $this->username, $this->password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully db3";
+            //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, false);
+
+            // echo "Connected successfully db3 <br>";
+            // var_dump($conn);
+            return $conn;
+
         } catch(PDOException $e) {
         // set the PDO error mode to exception
             echo "Connection failed from db3 : " . $e->getMessage();
+            exit;
         }
     }
 

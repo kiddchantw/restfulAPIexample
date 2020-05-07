@@ -6,26 +6,28 @@ header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 
-// INCLUDING DATABASE AND MAKING OBJECT
-require 'db.php';
-$db_connection = new Database();
-$conn = $db_connection->dbConnection();
+// // INCLUDING DATABASE AND MAKING OBJECT
 
-// echo "start PDO <br>";
 
-//$servername = "localhost";
+/*m1 直接呼叫db ok*/
+// // $servername = "localhost";
 // $servername = "127.0.0.1";
 // $username = "root";
 // $password = "1234";
-
 // try {
 //   $conn = new PDO("mysql:host=$servername;dbname=dbtest001", $username, $password);
 //   // set the PDO error mode to exception
 //   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //   // echo "Connected successfully";
-// } catch(PDOException $e) {
+//   } catch(PDOException $e) {
 //   echo "Connection failed: " . $e->getMessage();
 // }
+
+
+/*m2 間接呼叫db ok */
+require 'db.php';
+$db_connection = new Database();
+$conn = $db_connection->dbConnection();
 
 
 // CHECK GET ID PARAMETER OR NOT
@@ -47,6 +49,10 @@ else{
 // IF GET POSTS ID, THEN SHOW POSTS BY ID OTHERWISE SHOW ALL POSTS
 $sql = is_numeric($post_id) ? "SELECT * FROM `users` WHERE id='$post_id'" : "SELECT * FROM `users`"; 
 
+
+// echo " var_dump conn ";
+// var_dump($conn);
+
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 
@@ -55,9 +61,7 @@ $stmt->execute();
 if($stmt->rowCount() > 0){
     // CREATE POSTS ARRAY
     $posts_array = [];
-    
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        
         $post_data = [
             'id' => $row['id'],
             'name' => $row['name']
